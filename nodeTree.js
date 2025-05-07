@@ -32,12 +32,40 @@ class Tree {
         while (currNode.left || currNode.right) {
             currNode = value < currNode.value ? currNode.left : currNode.right
         }
-        console.log(currNode)
         if (value < currNode.value) {
             currNode.left = newNode
         } else {
             currNode.right = newNode
         }
+    }
+
+    delete(value, root) {
+        function getSuccessor(node) {
+            console.log(node)
+            node = node.right;
+            console.log(node)
+            while (node !== null && node.left !== null) {
+                node = node.left;
+                console.log(node)
+            }
+            return node;
+        }
+        console.log(root)
+
+        if (root === null) return root
+        if (root.value > value) {
+            root.left = this.delete(value, root.left)
+        } else if (root.value < value) {
+            root.right = this.delete(value, root.right)
+        } else {
+            if (root.left === null) return root.right;
+            if (root.right === null) return root.left;
+
+            let replacement = getSuccessor(root)
+            root.value = replacement.value;
+            root.right = this.delete(replacement.value, root.right)
+        }
+        return root
     }
 
     find(value, node) {
