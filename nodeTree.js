@@ -39,6 +39,18 @@ class Tree {
             currNode.right = newNode
         }
     }
+
+    find(value, node) {
+        let currNode = node
+        console.log({value})
+        console.log(currNode.value)
+        if (currNode.value === value) return currNode
+        if (value < currNode.value) {
+            return this.find(value, currNode.left)
+        } else {
+            return this.find(value, currNode.right)
+        }
+    }
 }
 
 export { Node, Tree }

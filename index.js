@@ -12,3 +12,5 @@ newTree.insert(20)
 newTree.insert(5)
 newTree.insert(8)
 prettyPrint(newTree.root)
+
+console.log(newTree.find(5, newTree.root))
