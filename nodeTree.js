@@ -25,6 +25,20 @@ class Tree {
 
         return root;
     }
+
+    insert(value) {
+        let currNode = this.root
+        const newNode = new Node(value)
+        while (currNode.left || currNode.right) {
+            currNode = value < currNode.value ? currNode.left : currNode.right
+        }
+        console.log(currNode)
+        if (value < currNode.value) {
+            currNode.left = newNode
+        } else {
+            currNode.right = newNode
+        }
+    }
 }
 
 export { Node, Tree }

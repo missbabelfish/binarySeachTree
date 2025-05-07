@@ -8,5 +8,7 @@ console.log(newTree.root)
 console.log(newTree.data)
 
 
+newTree.insert(20)
+newTree.insert(5)
+newTree.insert(8)
 prettyPrint(newTree.root)
-
