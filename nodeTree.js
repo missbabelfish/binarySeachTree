@@ -29,13 +29,20 @@ class Tree {
 	insert(value) {
 		let currNode = this.root;
 		const newNode = new Node(value);
-		while (currNode.left || currNode.right) {
-			currNode = value < currNode.value ? currNode.left : currNode.right;
-		}
-		if (value < currNode.value) {
-			currNode.left = newNode;
-		} else {
-			currNode.right = newNode;
+		while (true) {
+			if (value < currNode.value) {
+				if (currNode.left === null) {
+					currNode.left = newNode;
+					return;
+				}
+				currNode = currNode.left;
+			} else {
+				if (currNode.right === null) {
+					currNode.right = newNode;
+					return;
+				}
+				currNode = currNode.right;
+			}
 		}
 	}
 
@@ -101,6 +108,7 @@ class Tree {
 		this.inOrder(cb, root.left);
 		cb(root);
 		this.inOrder(cb, root.right);
+        return root;
 	}
 
 	preOrder(cb, root) {
@@ -110,6 +118,7 @@ class Tree {
 		cb(root);
 		this.preOrder(cb, root.left);
 		this.preOrder(cb, root.right);
+        return root;
 	}
 
 	postOrder(cb, root) {
@@ -119,6 +128,7 @@ class Tree {
 		this.postOrder(cb, root.left);
 		this.postOrder(cb, root.right);
 		cb(root);
+        return root;
 	}
 
 	subHeight(node) {
@@ -150,15 +160,15 @@ class Tree {
         return Math.abs(this.subHeight(node.left) - this.subHeight(node.right)) <=1
     }
 
-    treeBalanced(root) {
+    isBalanced(root) {
         return this.levelOrder(root => this.nodeBalanced(root))
     }
 
     rebalance(root) {
         let newSet = []
         this.inOrder((node) => newSet.push(node.value), root)
-        console.log(newSet)
-        return this.buildTree(newSet, 0, newSet.length-1)
+        this.root = this.buildTree(newSet, 0, newSet.length-1)
+        return this.root
     }
 }
 
