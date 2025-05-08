@@ -75,6 +75,7 @@ class Tree {
 		}
 	}
 
+    // currently only works with boolean callbacks
 	levelOrder(cb) {
 		if (typeof cb !== 'function') throw new Error('please pass a function');
 		if (this.root === null) return;
@@ -83,13 +84,14 @@ class Tree {
 
 		while (queue.length > 0) {
 			let currNode = queue[0];
-			cb(currNode);
+			let pass = cb(currNode);
+            if (!pass) return false;
 			if (currNode.left) queue.push(currNode.left);
 			if (currNode.right) queue.push(currNode.right);
 			queue.shift();
 		}
 
-		return this.root;
+		return true;
 	}
 
 	inOrder(cb, root) {
@@ -121,7 +123,6 @@ class Tree {
 
 	subHeight(node) {
 		let currNode = node;
-        console.log(node)
         if (currNode === null) return -1
         if (currNode.left === null && currNode.right === null) {
             return 0
@@ -144,6 +145,14 @@ class Tree {
 			return this.depth(value, currNode.right, ++count);
 		}
 	}
+
+    nodeBalanced(node) {
+        return Math.abs(this.subHeight(node.left) - this.subHeight(node.right)) <=1
+    }
+
+    treeBalanced(root) {
+        return this.levelOrder(root => this.nodeBalanced(root))
+    }
 }
 
 export { Node, Tree }
