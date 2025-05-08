@@ -93,6 +93,33 @@ class Tree {
         
         return this.root
     }
+
+    inOrder(cb, root) {
+        if (typeof cb !== 'function') throw new Error('please pass a function');
+		if (root === null) return;
+
+		this.inOrder(cb, root.left);
+        cb(root);
+		this.inOrder(cb, root.right);
+    }
+
+    preOrder(cb, root) {
+        if (typeof cb !== 'function') throw new Error('please pass a function');
+		if (root === null) return;
+
+        cb(root)
+        this.preOrder(cb, root.left)
+        this.preOrder(cb, root.right)
+    }
+
+    postOrder(cb, root) {
+        if (typeof cb !== 'function') throw new Error('please pass a function');
+		if (root === null) return;
+
+		this.postOrder(cb, root.left);
+		this.postOrder(cb, root.right);
+        cb(root);
+    } 
 }
 
 export { Node, Tree }
