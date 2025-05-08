@@ -16,8 +16,11 @@ const cb = node => console.log(node.value)
 
 // newTree.levelOrder(cb)
 
-newTree.preOrder(cb, newTree.root)
-newTree.inOrder(cb, newTree.root)
-newTree.postOrder(cb, newTree.root)
+// newTree.preOrder(cb, newTree.root)
+// newTree.inOrder(cb, newTree.root)
+// newTree.postOrder(cb, newTree.root)
+
+// console.log(newTree.depth(9, newTree.root))
+// console.log(newTree.height(6, newTree.root))
 
 prettyPrint(newTree.root)
