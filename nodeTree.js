@@ -153,6 +153,13 @@ class Tree {
     treeBalanced(root) {
         return this.levelOrder(root => this.nodeBalanced(root))
     }
+
+    rebalance(root) {
+        let newSet = []
+        this.inOrder((node) => newSet.push(node.value), root)
+        console.log(newSet)
+        return this.buildTree(newSet, 0, newSet.length-1)
+    }
 }
 
 export { Node, Tree }
