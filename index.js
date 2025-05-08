@@ -10,4 +10,9 @@ newTree.insert(8)
 newTree.delete(5, newTree.root)
 newTree.delete(5, newTree.root)
 newTree.delete(4, newTree.root)
+
+const cb = node => console.log(node.value)
+
+newTree.levelOrder(cb)
+
 prettyPrint(newTree.root)

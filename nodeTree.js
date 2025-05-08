@@ -41,16 +41,13 @@ class Tree {
 
     delete(value, root) {
         function getSuccessor(node) {
-            console.log(node)
             node = node.right;
-            console.log(node)
             while (node !== null && node.left !== null) {
                 node = node.left;
                 console.log(node)
             }
             return node;
         }
-        console.log(root)
 
         if (root === null) return root
         if (root.value > value) {
@@ -78,6 +75,23 @@ class Tree {
         } else {
             return this.find(value, currNode.right)
         }
+    }
+
+    levelOrder(cb) {
+        if (typeof cb !== 'function') throw new Error('please pass a function')
+        if (this.root === null) return;
+
+        let queue = [this.root]
+
+        while (queue.length > 0) {
+            let currNode = queue[0]
+            cb(currNode)
+            if (currNode.left) queue.push(currNode.left);
+			if (currNode.right) queue.push(currNode.right);
+            queue.shift();
+        }
+        
+        return this.root
     }
 }
 
